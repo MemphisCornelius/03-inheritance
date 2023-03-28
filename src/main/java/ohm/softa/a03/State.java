@@ -9,17 +9,20 @@ public abstract class State {
     private int t;
     private final int duration;
 
-    protected State(int time, int duration) {
-        this.t = time;
+    public State(int duration) {
         this.duration = duration;
     }
 
-    final State tick(Cat cat) {
+    public final State tick(Cat cat) {
         t = t + 1;
+
+        if (t < duration)
+            return this;
+
         return successor(cat);
     }
 
-    abstract State successor(Cat cat);
+    public abstract State successor(Cat cat);
 
     public int getTime() {
         return t;
